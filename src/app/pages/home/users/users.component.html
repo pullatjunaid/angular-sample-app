@@ -1,0 +1,112 @@
+<section>
+    <div class="add-new-user-block d-flex justify-content-end">
+        <button class="btn btn-md btn-success btn-block" type="button" (click)="onAddNewUser(content)">Add New
+            User</button>
+
+
+    </div>
+    <div class="search-block d-flex justify-content-end">
+        <form class="form-inline d-flex justify-content-end">
+            <input class="form-control mr-sm-2 mr-1" type="search" placeholder="Search" aria-label="Search"
+                (input)="onFilter($event)">
+        </form>
+    </div>
+    <div class="table-block">
+        <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th class="th-sm">Name
+                    </th>
+                    <th class="th-sm">Email
+                    </th>
+                    <th class="th-sm">Username
+                    </th>
+                    <th class="th-sm">Phone
+                    </th>
+                    <th class="th-sm">Gender
+                    </th>
+                    <th class="th-sm">DOB
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of filteredUsers">
+                    <td>{{item.user.name.title}} &nbsp; {{item.user.name.first}} &nbsp; {{item.user.name.last}}</td>
+                    <td>{{item.user.email}}</td>
+                    <td>{{item.user.username}}</td>
+                    <td>{{item.user.phone}}</td>
+                    <td>{{item.user.gender}}</td>
+                    <td>{{item.user.dob | date:'dd MMM yyyy'}}</td>
+                </tr>
+
+            </tbody>
+            <tfoot>
+
+            </tfoot>
+        </table>
+
+
+    </div>
+</section>
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Add User</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <form class="form-signin" [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
+                <div class="form-group mb-1 d-flex justify-content-start">
+                    <div class="col-md-2">
+                        <select class="form-control" name="title" formControlName="title" required="">
+                            <option value="">Title</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" name="firstname" placeholder="First Name" formControlName="firstname"
+                            required="" autofocus="" />
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" class="form-control" name="lastname" placeholder="Last Name" formControlName="lastname"
+                            required="" autofocus="" />
+                    </div>
+                </div>
+                <div class="form-group mb-1">
+                    <input type="email" class="form-control" name="email" placeholder="Email" formControlName="email"
+                        required="" autofocus="" />
+                </div>
+                <div class="form-group mb-1">
+                    <input type="text" class="form-control" name="username" placeholder="Username"
+                        formControlName="username" required="" autofocus="" />
+                </div>
+                <div class="form-group mb-1">
+                    <input type="tel" class="form-control" name="phone" placeholder="Phone" formControlName="phone"
+                        required="" autofocus="" />
+                </div>
+                <div class="form-group mb-1">
+                    <input type="password" class="form-control" name="password" placeholder="Password"
+                        formControlName="password" required="" />
+                </div>
+                <div class="form-group mb-1">
+                    <input type="date" class="form-control" name="dob" placeholder="DOB" formControlName="dob"
+                        required="" autofocus="" />
+                </div>
+                <div class="form-group mb-1">
+                    <select class="form-control" name="gender" formControlName="gender" required="">
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+            </form>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" [disabled]="!addUserForm.valid"
+            (click)="modal.close('Save click')">Save</button>
+    </div>
+</ng-template>
